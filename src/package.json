@@ -58,6 +58,10 @@
         {
             "required": true,
             "file": "AutoConfig.php"
+        },
+        {
+            "required": true,
+            "file": "main.php"
         }
     ],
     "files": [
