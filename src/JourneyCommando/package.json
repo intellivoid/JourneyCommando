@@ -1,0 +1,67 @@
+{
+    "package": {
+        "package_name": "net.intellivoid.journey_commando",
+        "name": "Journey Commando",
+        "version": "1.0.0.0",
+        "author": "Zi Xing Narrakas",
+        "organization": "Intellivoid",
+        "description": "Manages the Intellivoid infrastructure",
+        "url": "https://github.com/intellivoid/JourneyCommando",
+        "dependencies": [
+            {
+                "package": "com.wp_cli.php_cli_tools",
+                "version": "latest",
+                "source": "wp-cli@composer/php-cli-tools",
+                "required": true
+            },
+            {
+                "package": "net.intellivoid.acm",
+                "version": "latest",
+                "source": "default@github/intellivoid/acm",
+                "required": true
+            },
+            {
+                "package": "net.intellivoid.msqg",
+                "version": "latest",
+                "source": "default@github/intellivoid/msqg",
+                "required": true
+            }
+        ],
+        "configuration": {
+            "autoload_method": "generated_spl",
+            "main": {
+                "execution_point": "main.php",
+                "create_symlink": true,
+                "name": "journey_commando"
+            },
+            "post_installation": [],
+            "pre_installation": []
+        }
+    },
+    "components": [
+        {
+            "required": true,
+            "file": "Exceptions/DatabaseException.php"
+        },
+        {
+            "required": true,
+            "file": "Tasks/DatabaseCleanup.php"
+        },
+        {
+            "required": true,
+            "file": "Tasks/HostAbuseCheck.php"
+        },
+        {
+            "required": true,
+            "file": "JourneyCommando.php"
+        },
+        {
+            "required": true,
+            "file": "AutoConfig.php"
+        }
+    ],
+    "files": [
+        "package.json",
+        "intro.txt"
+    ]
+}
