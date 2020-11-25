@@ -17,4 +17,5 @@
     $ConfigurationSchema = new Schema();
     $ConfigurationSchema->setDefinition("Interval", 1500); // 25 Minutes
     $ConfigurationSchema->setDefinition("DatabaseCleanupEnabled", true); // Clears unused data from the database
+    $ConfigurationSchema->setDefinition("OpenBluSyncEnabled", true); // Syncs the OpenBlu servers
     $this->acm->defineSchema("Configuration", $ConfigurationSchema);

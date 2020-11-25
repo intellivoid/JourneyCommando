@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="/var/ppm" />
+      <path value="/etc/ppm/packages/net.intellivoid.acm==1.0.0.3" />
+      <path value="/etc/ppm/packages/com.wp_cli.php_cli_tools==0.11.11" />
+      <path value="/etc/ppm/packages/net.intellivoid.msqg==1.0.0.2" />
+    </include_path>
+  </component>
+</project>

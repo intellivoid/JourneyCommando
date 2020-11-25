@@ -6,6 +6,7 @@
     use acm\acm;
     use Exception;
     use JourneyCommando\Tasks\DatabaseCleanup;
+    use JourneyCommando\Tasks\OpenBluSync;
     use mysqli;
     use function cli\out;
 
@@ -47,6 +48,11 @@
         private DatabaseCleanup $DatabaseCleanup;
 
         /**
+         * @var OpenBluSync
+         */
+        private OpenBluSync $OpenBluSync;
+
+        /**
          * JourneyCommando constructor.
          * @throws Exception
          */
@@ -77,6 +83,7 @@
             );
 
             $this->DatabaseCleanup = new DatabaseCleanup($this);
+            $this->OpenBluSync = new OpenBluSync($this);
         }
 
         /**
@@ -105,6 +112,15 @@
                     catch(Exception $e)
                     {
                         out("Failed to execute DatabaseCleanup, " . $e->getMessage() . PHP_EOL);
+                    }
+
+                    try
+                    {
+                        $this->getOpenBluSync()->execute();
+                    }
+                    catch(Exception $e)
+                    {
+                        out("Failed to execute OpenBluSync, " . $e->getMessage() . PHP_EOL);
                     }
                 }
 
@@ -136,5 +152,13 @@
         public function getDatabaseCleanup(): DatabaseCleanup
         {
             return $this->DatabaseCleanup;
+        }
+
+        /**
+         * @return OpenBluSync
+         */
+        public function getOpenBluSync(): OpenBluSync
+        {
+            return $this->OpenBluSync;
         }
     }

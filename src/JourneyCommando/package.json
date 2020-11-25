@@ -2,7 +2,7 @@
     "package": {
         "package_name": "net.intellivoid.journey_commando",
         "name": "Journey Commando",
-        "version": "1.0.0.0",
+        "version": "1.0.0.1",
         "author": "Zi Xing Narrakas",
         "organization": "Intellivoid",
         "description": "Manages the Intellivoid infrastructure",
@@ -24,6 +24,12 @@
                 "package": "net.intellivoid.msqg",
                 "version": "latest",
                 "source": "default@github/intellivoid/msqg",
+                "required": true
+            },
+            {
+                "package": "net.intellivoid.openblu",
+                "version": "latest",
+                "source": "default@github/intellivoid/openblu",
                 "required": true
             }
         ],
