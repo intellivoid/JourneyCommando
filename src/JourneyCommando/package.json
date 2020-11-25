@@ -59,6 +59,10 @@
         },
         {
             "required": true,
+            "file": "Tasks/OpenBluSync.php"
+        },
+        {
+            "required": true,
             "file": "JourneyCommando.php"
         },
         {
@@ -71,7 +75,7 @@
         }
     ],
     "files": [
-        "package.json",
-        "intro.txt"
+        "intro.txt",
+        "package.json"
     ]
 }
