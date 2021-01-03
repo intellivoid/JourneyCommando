@@ -51,6 +51,10 @@
         },
         {
             "required": true,
+            "file": "Tasks/BotDatabaseCleanup.php"
+        },
+        {
+            "required": true,
             "file": "Tasks/DatabaseCleanup.php"
         },
         {

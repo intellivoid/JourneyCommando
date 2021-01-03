@@ -5,6 +5,7 @@
 
     use acm\acm;
     use Exception;
+    use JourneyCommando\Tasks\BotDatabaseCleanup;
     use JourneyCommando\Tasks\DatabaseCleanup;
     use JourneyCommando\Tasks\OpenBluSync;
     use mysqli;
@@ -53,6 +54,11 @@
         private OpenBluSync $OpenBluSync;
 
         /**
+         * @var BotDatabaseCleanup
+         */
+        private BotDatabaseCleanup $BotDatabaseCleanup;
+
+        /**
          * JourneyCommando constructor.
          * @throws Exception
          */
@@ -84,6 +90,7 @@
 
             $this->DatabaseCleanup = new DatabaseCleanup($this);
             $this->OpenBluSync = new OpenBluSync($this);
+            $this->BotDatabaseCleanup = new BotDatabaseCleanup($this);
         }
 
         /**
@@ -121,6 +128,15 @@
                     catch(Exception $e)
                     {
                         out("Failed to execute OpenBluSync, " . $e->getMessage() . PHP_EOL);
+                    }
+
+                    try
+                    {
+                        $this->getBotDatabaseCleanup()->execute();
+                    }
+                    catch(Exception $e)
+                    {
+                        out("Failed to execute BotDatabaseCleanup, " . $e->getMessage() . PHP_EOL);
                     }
                 }
 
@@ -160,5 +176,13 @@
         public function getOpenBluSync(): OpenBluSync
         {
             return $this->OpenBluSync;
+        }
+
+        /**
+         * @return BotDatabaseCleanup
+         */
+        public function getBotDatabaseCleanup(): BotDatabaseCleanup
+        {
+            return $this->BotDatabaseCleanup;
         }
     }
