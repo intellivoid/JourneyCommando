@@ -146,7 +146,6 @@
          *
          * @param string $table
          * @param string $id_column
-         * @param string $target_column
          * @param string $expires_column
          * @param bool $addition_property
          * @return array
@@ -294,6 +293,8 @@
 
             foreach($data as $key => $value)
             {
+                /** @noinspection SqlResolve */
+                /** @noinspection SqlNoDataSourceInspection */
                 $Query = "DELETE FROM `$table` WHERE $id_column='" . (int)$key . "'";
                 $QueryResults = $this->journeyCommando->getWorkingDatabase()->query($Query);
 

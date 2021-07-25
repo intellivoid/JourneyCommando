@@ -39,9 +39,19 @@
         private mysqli $Database;
 
         /**
+         * @var bool
+         */
+        private bool $DatabaseConnected;
+
+        /**
          * @var mysqli
          */
         private mysqli $WorkingDatabase;
+
+        /**
+         * @var bool
+         */
+        private bool $WorkingDatabaseConnected;
 
         /**
          * @var DatabaseCleanup
@@ -69,25 +79,8 @@
 
             $this->DatabaseConfiguration = $this->acm->getConfiguration('Database');
             $this->Configuration = $this->acm->getConfiguration('Configuration');
-
-            // Main database connection
-            $this->Database = new mysqli(
-                $this->DatabaseConfiguration['Host'],
-                $this->DatabaseConfiguration['Username'],
-                $this->DatabaseConfiguration['Password'],
-                $this->DatabaseConfiguration['Name'],
-                $this->DatabaseConfiguration['Port']
-            );
-
-            // Establish a second connection for scanning purposes
-            $this->WorkingDatabase = new mysqli(
-                $this->DatabaseConfiguration['Host'],
-                $this->DatabaseConfiguration['Username'],
-                $this->DatabaseConfiguration['Password'],
-                $this->DatabaseConfiguration['Name'],
-                $this->DatabaseConfiguration['Port']
-            );
-
+            $this->DatabaseConnected = false;
+            $this->WorkingDatabaseConnected = false;
             $this->DatabaseCleanup = new DatabaseCleanup($this);
             $this->OpenBluSync = new OpenBluSync($this);
             $this->BotDatabaseCleanup = new BotDatabaseCleanup($this);
@@ -140,6 +133,10 @@
                     }
                 }
 
+                out("Disconnecting from working databases to save resources");
+                $this->disconnectDatabase();;
+                $this->disconnectWorkingDatabase();
+
                 out("The commando will take a break for " . $this->Configuration["Interval"] . " seconds" . PHP_EOL);
                 sleep($this->Configuration["Interval"]);
             }
@@ -151,7 +148,32 @@
          */
         public function getDatabase(): mysqli
         {
+            if($this->DatabaseConnected == false)
+            {
+                $this->Database = new mysqli(
+                    $this->DatabaseConfiguration['Host'],
+                    $this->DatabaseConfiguration['Username'],
+                    $this->DatabaseConfiguration['Password'],
+                    $this->DatabaseConfiguration['Name'],
+                    $this->DatabaseConfiguration['Port']
+                );
+
+                $this->DatabaseConnected = true;
+            }
+
             return $this->Database;
+        }
+
+        /**
+         * Disconnects from the main database
+         */
+        public function disconnectDatabase()
+        {
+            if($this->DatabaseConnected == false)
+                return;
+
+            $this->Database->close();
+            $this->DatabaseConnected = false;
         }
 
         /**
@@ -159,7 +181,32 @@
          */
         public function getWorkingDatabase(): mysqli
         {
+            if($this->WorkingDatabaseConnected == false)
+            {
+                $this->WorkingDatabase = new mysqli(
+                    $this->DatabaseConfiguration['Host'],
+                    $this->DatabaseConfiguration['Username'],
+                    $this->DatabaseConfiguration['Password'],
+                    $this->DatabaseConfiguration['Name'],
+                    $this->DatabaseConfiguration['Port']
+                );
+
+                $this->WorkingDatabaseConnected = true;
+            }
+
             return $this->WorkingDatabase;
+        }
+
+        /**
+         * Disconnects from the working database
+         */
+        public function disconnectWorkingDatabase()
+        {
+            if($this->WorkingDatabaseConnected == false)
+                return;
+
+            $this->WorkingDatabase->close();
+            $this->WorkingDatabaseConnected = false;
         }
 
         /**
