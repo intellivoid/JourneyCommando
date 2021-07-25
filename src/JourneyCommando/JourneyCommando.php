@@ -8,6 +8,7 @@
     use JourneyCommando\Tasks\BotDatabaseCleanup;
     use JourneyCommando\Tasks\DatabaseCleanup;
     use JourneyCommando\Tasks\OpenBluSync;
+    use JourneyCommando\Tasks\PurgeBinLogs;
     use mysqli;
     use function cli\out;
 
@@ -69,6 +70,11 @@
         private BotDatabaseCleanup $BotDatabaseCleanup;
 
         /**
+         * @var PurgeBinLogs
+         */
+        private PurgeBinLogs $PurgeBinLogs;
+
+        /**
          * JourneyCommando constructor.
          * @throws Exception
          */
@@ -84,6 +90,7 @@
             $this->DatabaseCleanup = new DatabaseCleanup($this);
             $this->OpenBluSync = new OpenBluSync($this);
             $this->BotDatabaseCleanup = new BotDatabaseCleanup($this);
+            $this->PurgeBinLogs = new PurgeBinLogs($this);
         }
 
         /**
@@ -130,6 +137,15 @@
                     catch(Exception $e)
                     {
                         out("Failed to execute BotDatabaseCleanup, " . $e->getMessage() . PHP_EOL);
+                    }
+
+                    try
+                    {
+                        $this->getPurgeBinLogs()->execute();
+                    }
+                    catch(Exception $e)
+                    {
+                        out("Failed to execute PurgeBinLogs, " . $e->getMessage() . PHP_EOL);
                     }
                 }
 
@@ -231,5 +247,13 @@
         public function getBotDatabaseCleanup(): BotDatabaseCleanup
         {
             return $this->BotDatabaseCleanup;
+        }
+
+        /**
+         * @return PurgeBinLogs
+         */
+        public function getPurgeBinLogs(): PurgeBinLogs
+        {
+            return $this->PurgeBinLogs;
         }
     }
