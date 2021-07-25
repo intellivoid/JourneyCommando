@@ -2,7 +2,7 @@
     "package": {
         "package_name": "net.intellivoid.journey_commando",
         "name": "Journey Commando",
-        "version": "1.0.0.2",
+        "version": "1.0.0.3",
         "author": "Zi Xing Narrakas",
         "organization": "Intellivoid",
         "description": "Manages the Intellivoid infrastructure",
