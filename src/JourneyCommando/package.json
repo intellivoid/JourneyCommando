@@ -47,19 +47,15 @@
     "components": [
         {
             "required": true,
+            "file": "JourneyCommando.php"
+        },
+        {
+            "required": true,
+            "file": "main.php"
+        },
+        {
+            "required": true,
             "file": "Exceptions/DatabaseException.php"
-        },
-        {
-            "required": true,
-            "file": "Tasks/BotDatabaseCleanup.php"
-        },
-        {
-            "required": true,
-            "file": "Tasks/DatabaseCleanup.php"
-        },
-        {
-            "required": true,
-            "file": "Tasks/HostAbuseCheck.php"
         },
         {
             "required": true,
@@ -67,19 +63,27 @@
         },
         {
             "required": true,
-            "file": "JourneyCommando.php"
+            "file": "Tasks/PurgeBinLogs.php"
+        },
+        {
+            "required": true,
+            "file": "Tasks/BotDatabaseCleanup.php"
+        },
+        {
+            "required": true,
+            "file": "Tasks/HostAbuseCheck.php"
+        },
+        {
+            "required": true,
+            "file": "Tasks/DatabaseCleanup.php"
         },
         {
             "required": true,
             "file": "AutoConfig.php"
-        },
-        {
-            "required": true,
-            "file": "main.php"
         }
     ],
     "files": [
-        "intro.txt",
-        "package.json"
+        "package.json",
+        "intro.txt"
     ]
 }
